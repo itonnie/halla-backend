@@ -3,7 +3,7 @@ let User = require("../models/user");
 let router = express.Router();
 
 //update the user profile
-router.post("/update_profile", (req, res, next) => {
+router.post("/update_profile", ensureToken, (req, res, next) => {
     let id = req.body.id;
     let bio = req.body.bio;
     let fullName = req.body.fullName;
@@ -21,5 +21,18 @@ router.post("/update_profile", (req, res, next) => {
         }
     })
 });
+
+function ensureToken(req, res, next) {
+    var bearerHeader = req.headers["authorization"];
+  
+    if(typeof bearerHeader !== 'undefined' ) {
+        const bearer = bearerHeader.split(" ");
+        const bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    } else {
+        res.sendStatus(403);
+    }
+  }
 
 module.exports = router;

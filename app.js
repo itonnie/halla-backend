@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:27017/fleek");
-//mongoose.connect("mongodb://onejohi:lisanjeri@ds115198.mlab.com:15198/halla")
+//mongoose.connect("mongodb://127.0.0.1:27017/fleek");
+mongoose.connect("mongodb://onejohi:lisanjeri@ds115198.mlab.com:15198/halla")
 
 var app = express();
 

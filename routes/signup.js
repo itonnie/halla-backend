@@ -1,20 +1,7 @@
 let express = require('express');
 let User = require("../models/user");
+let jwt = require("jsonwebtoken");
 let router = express.Router();
-
-router.get('/', (req, res, next) => {
-  let names = ['Tony','Lisa','Micket'];
-  let myobject = [];
-
-  names.forEach((name) => {
-      user = {
-          username: name
-      };
-      myobject.push(user);
-  });
-
-  res.json(myobject);
-});
 
 //create a new account using a unique username
 router.post("/", (req, res, next) => {
@@ -51,9 +38,15 @@ router.post("/", (req, res, next) => {
                 newuser.save((error, saved) => {
                     if(err) throw err;
                     else {
+                        var user = { username: username, password: password };
+                        let token = jwt.sign(user, 'tonniewanjohi');
                         res.json({
                             ok: true,
-                            data: saved
+                            data: {
+                                username: saved.username,
+                                id: saved._id
+                            },
+                            token: token
                         });
                     }
                 })
