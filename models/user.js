@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var userSchema = mongoose.Schema({
+var userSchema = new mongoose.Schema({
   username: String,
   password: String,
   profile_photo_url: String,
@@ -23,6 +23,10 @@ var userSchema = mongoose.Schema({
   },
   stories: [],
 });
+
+userSchema.methods.sayHi = (data, callback) => {
+  callback("Hello" + data);
+}
 
 var User = mongoose.model("User", userSchema, "users");
 

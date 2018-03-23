@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
 
-//mongoose.connect("mongodb://127.0.0.1:27017/fleek");
+//mongoose.connect("mongodb://127.0.0.1:27017/halla");
 mongoose.connect("mongodb://onejohi:lisanjeri@ds115198.mlab.com:15198/halla")
 
 var app = express();
@@ -23,11 +23,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
-app.use('/signin', require("./routes/signin"));
-app.use('/signup', require("./routes/signup"));
-app.use('/profile', require('./routes/profile'));
+app.use('/', require('./routes/index'))
+app.use('/users', require('./routes/users'))
+app.use('/signin', require("./routes/signin"))
+app.use('/signup', require("./routes/signup"))
+app.use('/profile', require('./routes/profile'))
+app.use('/verify_phone', require('./routes/verify_phone'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -4,7 +4,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  //res.render('index', { title: 'Express' });
+  let user = new User();
+  user.sayHi("James", (data) => {
+    console.log(data);
+  })
 });
 
 router.get('/:username', ensureToken, (req, res, next) => {

@@ -10,7 +10,8 @@ router.post("/update_profile", ensureToken, (req, res, next) => {
 
     User.findOneAndUpdate({ _id: id }, { $set: {
         bio: bio,
-        fullName: fullName
+        fullName: fullName,
+        last_seen: Date.now()
     }}, { "new": true }, (err, result) => {
         if(err) throw err;
         else {
@@ -21,6 +22,28 @@ router.post("/update_profile", ensureToken, (req, res, next) => {
         }
     })
 });
+
+router.post("/build_profile", (req, res, next) => {
+    let profile_url = req.body.profile_url;
+    let fullName = req.body.fullname;
+    let id = req.body.id;
+
+    User.findOneAndUpdate({ _id: id }, { $set: {
+        profile_photo_url: profile_url,
+        fullName: fullName,
+        last_seen: Date.now()
+    }}, { "new": true }, (err, result) => {
+        if(err) throw err;
+        else
+            res.json({
+                ok: true,
+                data: {
+                    username: result.username,
+                    fullname: result.fullName,
+                }
+            })
+    })
+})
 
 function ensureToken(req, res, next) {
     var bearerHeader = req.headers["authorization"];

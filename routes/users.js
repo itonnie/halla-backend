@@ -2,7 +2,7 @@ var express = require('express');
 let Users = require("../models/user");
 var router = express.Router();
 
-router.get('/', ensureToken, function(req, res, next) {
+router.get('/', ensureToken, (req, res, next) => {
   Users.find((err, result) => {
     if(err) throw err;
     else {
